@@ -53,7 +53,7 @@ def main():
 
     _LOGGER.info("Starting the subprocess to take the dump from database.")
     run_command(
-        f"pg_dump -h {KNOWLEDGE_GRAPH_HOST} -p {KNOWLEDGE_GRAPH_PORT} -U {KNOWLEDGE_GRAPH_USER} -d {KNOWLEDGE_GRAPH_DATABASE} -f {backup_file_dest}"
+        f"pg_dump -h {KNOWLEDGE_GRAPH_HOST} -p {KNOWLEDGE_GRAPH_PORT} -U {KNOWLEDGE_GRAPH_USER} -d {KNOWLEDGE_GRAPH_DATABASE} -f {backup_file_dest}", timeout=None
     )
     _LOGGER.info("upload the database backup file to ceph storage.")
     try:
