@@ -155,4 +155,10 @@ objects:
                     limits:
                       memory: "256Mi"
                       cpu: "500m"
+                  livenessProbe:
+                    tcpSocket:
+                      port: 80
+                    initialDelaySeconds: 7200
+                    failureThreshold: 1
+                    periodSeconds: 10
               restartPolicy: OnFailure
