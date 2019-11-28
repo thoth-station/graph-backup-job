@@ -17,6 +17,7 @@
 
 """Graph backup logic for the Thoth project."""
 
+import sys
 import logging
 import os
 from datetime import datetime
