@@ -17,58 +17,9 @@ metadata:
   labels:
     template: graph-backup-buildconfig
     app: thoth
-    component: configmap
+    component: graph-backup
 
 objects:
-  - kind: BuildConfig
-    apiVersion: build.openshift.io/v1
-    metadata:
-      name: s2i-thoth-ubi8-py36-postgres
-      annotations:
-        thoth-station.ninja/template-version: 0.1.0
-      labels:
-        app: thoth
-        component: graph-backup
-    spec:
-      resources:
-        requests:
-          memory: "256Mi"
-          cpu: "500m"
-        limits:
-          memory: "256Mi"
-          cpu: "500m"
-      output:
-        to:
-          kind: ImageStreamTag
-          name: "s2i-thoth-ubi8-py36-postgres:${IMAGE_STREAM_TAG}"
-      source:
-        dockerfile: |
-          FROM s2i-thoth-ubi8-py36:latest
-          ENV LANG=en_US.UTF-8
-          USER 0
-          RUN dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
-          RUN dnf update -y
-          RUN dnf install -y postgresql96
-          USER 1001
-        type: Git
-        git:
-          uri: ${GITHUB_URL}
-          ref: ${GITHUB_REF}
-      strategy:
-        type: Docker
-        dockerStrategy:
-          from:
-            kind: ImageStreamTag
-            name: s2i-thoth-ubi8-py36:latest
-      triggers:
-        - type: ConfigChange
-        - type: ImageChange
-          imageChange: {}
-        - type: Generic
-          generic:
-            secretReference:
-              name: generic-webhook-secret
-
   - kind: BuildConfig
     apiVersion: build.openshift.io/v1
     metadata:
