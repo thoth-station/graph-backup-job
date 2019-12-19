@@ -69,7 +69,6 @@ objects:
                 app: thoth
                 component: graph-backup
             spec:
-              serviceAccountName: "graph-backup-job"
               containers:
                 - image: "${IMAGE_STREAM_REGISTRY}/${IMAGE_STREAM_NAMESPACE}/graph-backup-job:${IMAGE_STREAM_TAG}"
                   name: graph-backup
