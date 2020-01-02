@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Graph Backup Job
-# Copyright(C) 2019 Harshad Reddy Nalla.
+# Copyright(C) 2019 Harshad Reddy Nalla, Fridolin Pokorny
 #
 # This program is free software: you can redistribute it and / or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
 
 import logging
 import os
-from datetime import datetime
 from thoth.analyzer import run_command
 from thoth.common import init_logging
 from thoth.storages import __version__ as __storages__version__
@@ -40,20 +39,16 @@ def main():
     adapter = GraphBackupStore()
     adapter.connect()
 
-    backup_file_name = f"pg_dump-{datetime.now().strftime('%s')}"
-    _LOGGER.info("The database backup will be stored in: %r", backup_file_name)
-    backup_file_dest = os.path.abspath(backup_file_name)
-
     _LOGGER.info("Starting creation of the database dump")
     run_command(
         f"pg_dump -h {KNOWLEDGE_GRAPH_HOST} -p {KNOWLEDGE_GRAPH_PORT} "
-        f"-U {KNOWLEDGE_GRAPH_USER} -d {KNOWLEDGE_GRAPH_DATABASE} -f {backup_file_dest}",
+        f"-U {KNOWLEDGE_GRAPH_USER} -d {KNOWLEDGE_GRAPH_DATABASE} -f pg_dump.sql",
         env={"PGPASSWORD": os.getenv("KNOWLEDGE_GRAPH_PASSWORD", "postgres")},
         timeout=None,
     )
     _LOGGER.info("Uploading the database dump")
-    document_id = adapter.store_file(backup_file_dest, backup_file_name)
-    _LOGGER.info("The database dump is available at %s/%s", adapter.prefix, document_id)
+    object_id = adapter.store_dump("pg_dump.sql")
+    _LOGGER.info("The database dump is available at %s/%s", adapter.prefix, object_id)
     _LOGGER.info("Graph backup task is done.")
 
 
