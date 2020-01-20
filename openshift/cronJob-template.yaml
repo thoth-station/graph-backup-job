@@ -148,11 +148,11 @@ objects:
                           key: database-name
                   resources:
                     requests:
-                      memory: "256Mi"
-                      cpu: "500m"
+                      memory: "1Gi"
+                      cpu: "1"
                     limits:
-                      memory: "256Mi"
-                      cpu: "500m"
+                      memory: "1Gi"
+                      cpu: "1"
                   livenessProbe:
                     tcpSocket:
                       port: 80
