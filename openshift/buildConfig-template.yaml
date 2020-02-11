@@ -7,13 +7,13 @@ metadata:
       This is Thoth Graph Backup CronJob BuildConfig, this template is meant to be used by Bots,
       but could also be used by humans...
     openshift.io/display-name: "Thoth: Graph Backup Job BuildConfig"
-    version: 0.1.0
+    version: 0.1.1
     tags: thoth,graph-backup,ai-stacks,aistacks,graph
     template.openshift.io/documentation-url: https://github.com/Thoth-Station/
     template.openshift.io/long-description: >
       This template defines resources needed to deploy Thoth Graph Backup Job BuildConfig to OpenShift.
     template.openshift.io/provider-display-name: Red Hat, Inc.
-    thoth-station.ninja/template-version: 0.1.0
+    thoth-station.ninja/template-version: 0.1.1
   labels:
     template: graph-backup-buildconfig
     app: thoth
@@ -25,7 +25,7 @@ objects:
     metadata:
       name: graph-backup-job
       annotations:
-        thoth-station.ninja/template-version: 0.1.0
+        thoth-station.ninja/template-version: 0.1.1
       labels:
         app: thoth
         component: graph-backup
@@ -68,6 +68,8 @@ objects:
             - name: "THAMOS_CONFIG_TEMPLATE"
               value: ".thoth.yaml"
             - name: "THAMOS_CONFIG_EXPAND_ENV"
+              value: "1"
+            - name: "THOTH_ERROR_FALLBACK"
               value: "1"
       triggers:
         - type: ConfigChange
