@@ -13,7 +13,7 @@ metadata:
     template.openshift.io/long-description: >
       This template defines resources needed to deploy Thoth Graph Backup Job CronJob to OpenShift.
     template.openshift.io/provider-display-name: "Red Hat, Inc."
-    thoth-station.ninja/template-version: 0.1.1
+    thoth-station.ninja/template-version: 0.1.2
   labels:
     template: graph-backup-cronjob
     app: thoth
@@ -50,7 +50,7 @@ objects:
     metadata:
       name: graph-backup
       annotations:
-        thoth-station.ninja/template-version: 0.1.1
+        thoth-station.ninja/template-version: 0.1.2
       labels:
         app: thoth
         component: graph-backup
@@ -148,10 +148,10 @@ objects:
                           key: database-name
                   resources:
                     requests:
-                      memory: "1Gi"
+                      memory: "3Gi"
                       cpu: "1"
                     limits:
-                      memory: "1Gi"
+                      memory: "3Gi"
                       cpu: "1"
                   livenessProbe:
                     tcpSocket:
