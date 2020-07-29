@@ -1,0 +1,15 @@
+check:
+  - thoth-precommit
+  - thoth-build
+build:
+  base-image: quay.io/thoth-station/s2i-thoth-ubi8-py36-postgres:latest
+  build-stratergy: Source
+  registry: quay.io
+  registry-org: thoth-station
+  registry-project: graph-backup-job
+  registry-secret: thoth-station-thoth-pusher-secret
+deploy:
+  project-org: thoth-station
+  project-name: thoth-application
+  image-name: graph-backup-job
+  overlay-contextpath: graph-backup-job/overlays/test/imagestreamtag.yaml
