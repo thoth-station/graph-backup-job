@@ -26,7 +26,8 @@ from thoth.storages import GraphBackupStore
 
 init_logging()
 _LOGGER = logging.getLogger("thoth.graph_backup_job")
-__version__ = f"0.6.0+thoth_storage.{__storages__version__}"
+__version__ = "0.6.0"
+__component_version__ = f"{__version__}+thoth_storage.{__storages__version__}"
 KNOWLEDGE_GRAPH_HOST = os.getenv("KNOWLEDGE_GRAPH_HOST", "localhost")
 KNOWLEDGE_GRAPH_PORT = os.getenv("KNOWLEDGE_GRAPH_PORT", "5432")
 KNOWLEDGE_GRAPH_USER = os.getenv("KNOWLEDGE_GRAPH_USER", "postgres")
@@ -53,5 +54,5 @@ def main():
 
 
 if __name__ == "__main__":
-    _LOGGER.info("graph-backup-job v%s starting...", __version__)
+    _LOGGER.info("graph-backup-job v%s starting...", __component_version__)
     main()
