@@ -22,7 +22,10 @@ import os
 from thoth.analyzer import run_command
 from thoth.common import init_logging
 from thoth.storages import __version__ as __storages__version__
-from thoth.storages import GraphBackupStore
+from thoth.storages import GraphBackupStore, GraphDatabase
+
+from prometheus_client import Gauge, CollectorRegistry, push_to_gateway
+
 
 init_logging()
 _LOGGER = logging.getLogger("thoth.graph_backup_job")
@@ -33,10 +36,55 @@ KNOWLEDGE_GRAPH_PORT = os.getenv("KNOWLEDGE_GRAPH_PORT", "5432")
 KNOWLEDGE_GRAPH_USER = os.getenv("KNOWLEDGE_GRAPH_USER", "postgres")
 KNOWLEDGE_GRAPH_DATABASE = os.getenv("KNOWLEDGE_GRAPH_DATABASE", "postgres")
 
+# metrics
+THOTH_METRICS_PUSHGATEWAY_URL = os.getenv("PROMETHEUS_PUSHGATEWAY_URL")
+THOTH_DEPLOYMENT_NAME = os.getenv("THOTH_DEPLOYMENT_NAME")
+
+prometheus_registry = CollectorRegistry()
+
+database_schema_revision_script = Gauge(
+    "thoth_database_schema_revision_script",
+    "Thoth database schema revision from script",
+    ["component", "revision", "env"],
+    registry=prometheus_registry,
+)
+
+
+def _send_metrics():
+    """Send metrics to pushgateway."""
+    pushgateway_url = THOTH_METRICS_PUSHGATEWAY_URL
+    deployment_name = THOTH_DEPLOYMENT_NAME
+
+    component_name = "graph-backup-job"
+
+    if deployment_name:
+        database_schema_revision_script.labels(
+            component_name, GraphDatabase().get_script_alembic_version_head(), deployment_name
+        ).inc()
+    else:
+        _LOGGER.warning("THOTH_DEPLOYMENT_NAME env variable is not set.")
+
+    if pushgateway_url and deployment_name:
+        try:
+            _LOGGER.debug(f"Submitting metrics to Prometheus pushgateway {pushgateway_url}")
+            push_to_gateway(
+                pushgateway_url,
+                job=component_name,
+                registry=prometheus_registry,
+            )
+        except Exception as e:
+            _LOGGER.exception(f"An error occurred pushing the metrics: {str(e)}")
+
+    else:
+        _LOGGER.warning("PROMETHEUS_PUSHGATEWAY_URL env variable is not set.")
+
 
 def main():
     """Perform graph backup job."""
     _LOGGER.debug("Debug mode is on.")
+
+    _send_metrics()
+
     adapter = GraphBackupStore()
     adapter.connect()
 
