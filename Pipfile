@@ -9,6 +9,8 @@ verify_ssl = true
 thoth-storages = "*"
 thoth-common = "*"
 thoth-analyzer = "*"
+prometheus-client = "*"
+
 
 [requires]
 python_version = "3.8"
