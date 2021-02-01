@@ -29,7 +29,7 @@ from prometheus_client import Gauge, CollectorRegistry, push_to_gateway
 
 init_logging()
 _LOGGER = logging.getLogger("thoth.graph_backup_job")
-__version__ = "0.7.0"
+__version__ = "0.8.0"
 __component_version__ = f"{__version__}+thoth_storage.{__storages__version__}"
 KNOWLEDGE_GRAPH_HOST = os.getenv("KNOWLEDGE_GRAPH_HOST", "localhost")
 KNOWLEDGE_GRAPH_PORT = os.getenv("KNOWLEDGE_GRAPH_PORT", "5432")

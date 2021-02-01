@@ -123,3 +123,9 @@
 * :pushpin: Automatic update of dependency thoth-common from 0.9.16 to 0.9.19
 * :pushpin: Automatic update of dependency thoth-storages from 0.19.24 to 0.19.25
 * :pushpin: Automatic update of dependency thoth-analyzer from 0.1.4 to 0.1.5
+
+## Release 0.8.0 (2021-02-01T07:38:46)
+### Features
+* Introduce revision metrics (#136)
+* port to python 38 (#133)
+* py38 based on image for graph-backup (#134)
