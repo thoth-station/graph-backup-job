@@ -129,3 +129,9 @@
 * Introduce revision metrics (#136)
 * port to python 38 (#133)
 * py38 based on image for graph-backup (#134)
+
+## Release 0.8.1 (2021-02-25T14:23:17)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet (#142)
+* :arrow_up: Automatic update of dependencies by Kebechet (#141)
+* kebechet issue templates for ease trigger
