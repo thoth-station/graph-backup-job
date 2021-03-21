@@ -135,3 +135,13 @@
 * :arrow_up: Automatic update of dependencies by Kebechet (#142)
 * :arrow_up: Automatic update of dependencies by Kebechet (#141)
 * kebechet issue templates for ease trigger
+
+## Release 0.8.2 (2021-03-21T17:55:18)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet (#153)
+* configure ci/cd prow on the app and updated pre-commit
+* :arrow_up: Automatic update of dependencies by Kebechet
+* add pre-commit
+* :arrow_up: Automatic update of dependencies by Kebechet (#149)
+* :arrow_up: Automatic update of dependencies by Kebechet
