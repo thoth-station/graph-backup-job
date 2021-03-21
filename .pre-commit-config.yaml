@@ -22,7 +22,7 @@ repos:
       - id: debug-statements
 
   - repo: git://github.com/pycqa/pydocstyle.git
-    rev: 5.1.1
+    rev: 6.0.0
     hooks:
       - id: pydocstyle
 
@@ -40,7 +40,7 @@ repos:
       - id: black
 
   - repo: https://gitlab.com/PyCQA/flake8
-    rev: '3.8.4'
+    rev: '3.9.0'
     hooks:
       - id: flake8
         additional_dependencies: ['pep8-naming']
