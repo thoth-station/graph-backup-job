@@ -145,3 +145,7 @@
 * add pre-commit
 * :arrow_up: Automatic update of dependencies by Kebechet (#149)
 * :arrow_up: Automatic update of dependencies by Kebechet
+
+## Release 0.8.3 (2021-05-02T23:13:11)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet (#158)
