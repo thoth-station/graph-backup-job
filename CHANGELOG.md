@@ -149,3 +149,9 @@
 ## Release 0.8.3 (2021-05-02T23:13:11)
 ### Features
 * :arrow_up: Automatic update of dependencies by Kebechet (#158)
+
+## Release 0.8.4 (2021-06-03T17:38:03)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet (#162)
+* :hatched_chick: update the prow resource limits (#161)
