@@ -155,3 +155,9 @@
 * :arrow_up: Automatic update of dependencies by Kebechet
 * :arrow_up: Automatic update of dependencies by Kebechet (#162)
 * :hatched_chick: update the prow resource limits (#161)
+
+## Release 0.8.5 (2021-07-02T10:26:03)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
+* :arrow_up: Automatic update of dependencies by Kebechet
