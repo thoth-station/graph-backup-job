@@ -161,3 +161,7 @@
 * :arrow_up: Automatic update of dependencies by Kebechet
 * :arrow_up: Automatic update of dependencies by Kebechet
 * :arrow_up: Automatic update of dependencies by Kebechet
+
+## Release 0.8.6 (2021-07-30T10:11:19)
+### Features
+* :arrow_up: Automatic update of dependencies by Kebechet
