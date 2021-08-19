@@ -1,4 +1,8 @@
 
+## Release 0.8.7 (2021-08-19T08:08:50)
+### Features
+* Adjust marker of typing-extension
+
 ## Release 0.7.0 (2020-09-02T07:00:37)
 ### Features
 * include the templates and maintainer
