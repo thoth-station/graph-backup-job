@@ -1,4 +1,8 @@
 
+## Release 0.8.8 (2021-09-14T19:39:48)
+### Features
+* Update of the dependencies
+
 ## Release 0.8.7 (2021-08-19T08:08:50)
 ### Features
 * Adjust marker of typing-extension
