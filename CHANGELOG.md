@@ -1,4 +1,8 @@
 
+## Release 0.8.9 (2021-09-20T13:27:09)
+### Features
+* Fix the dependency issues
+
 ## Release 0.8.8 (2021-09-14T19:39:48)
 ### Features
 * Update of the dependencies
