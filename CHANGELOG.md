@@ -1,4 +1,10 @@
 
+## Release 0.8.12 (2021-12-24T15:42:40)
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* Update pyproject.toml to use Python 3.8
+
 ## Release 0.8.11 (2021-11-08T12:10:36)
 * :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
 
