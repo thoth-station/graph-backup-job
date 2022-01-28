@@ -31,6 +31,8 @@ init_logging()
 _LOGGER = logging.getLogger("thoth.graph_backup_job")
 __version__ = "0.8.12"
 __component_version__ = f"{__version__}+thoth_storage.{__storages__version__}"
+COMPONENT_NAME = "graph-backup-job"
+
 KNOWLEDGE_GRAPH_HOST = os.getenv("KNOWLEDGE_GRAPH_HOST", "localhost")
 KNOWLEDGE_GRAPH_PORT = os.getenv("KNOWLEDGE_GRAPH_PORT", "5432")
 KNOWLEDGE_GRAPH_USER = os.getenv("KNOWLEDGE_GRAPH_USER", "postgres")
@@ -49,27 +51,22 @@ database_schema_revision_script = Gauge(
     registry=prometheus_registry,
 )
 
+_METRIC_PG_DUMP_STATUS = Gauge(
+    "thoth_graph_backup_job",
+    "Thoth Graph Backup Job save status",
+    ["env", "version"],
+    registry=prometheus_registry,
+)
+
 
 def _send_metrics():
     """Send metrics to pushgateway."""
-    pushgateway_url = THOTH_METRICS_PUSHGATEWAY_URL
-    deployment_name = THOTH_DEPLOYMENT_NAME
-
-    component_name = "graph-backup-job"
-
-    if deployment_name:
-        database_schema_revision_script.labels(
-            component_name, GraphDatabase().get_script_alembic_version_head(), deployment_name
-        ).inc()
-    else:
-        _LOGGER.warning("THOTH_DEPLOYMENT_NAME env variable is not set.")
-
-    if pushgateway_url and deployment_name:
+    if THOTH_METRICS_PUSHGATEWAY_URL and THOTH_DEPLOYMENT_NAME:
         try:
-            _LOGGER.debug(f"Submitting metrics to Prometheus pushgateway {pushgateway_url}")
+            _LOGGER.debug(f"Submitting metrics to Prometheus pushgateway {THOTH_METRICS_PUSHGATEWAY_URL}")
             push_to_gateway(
-                pushgateway_url,
-                job=component_name,
+                THOTH_METRICS_PUSHGATEWAY_URL,
+                job=COMPONENT_NAME,
                 registry=prometheus_registry,
             )
         except Exception as e:
@@ -83,22 +80,37 @@ def main():
     """Perform graph backup job."""
     _LOGGER.debug("Debug mode is on.")
 
-    _send_metrics()
+    if THOTH_DEPLOYMENT_NAME:
+        database_schema_revision_script.labels(
+            COMPONENT_NAME, GraphDatabase().get_script_alembic_version_head(), THOTH_DEPLOYMENT_NAME
+        ).inc()
+    else:
+        _LOGGER.warning("THOTH_DEPLOYMENT_NAME env variable is not set.")
 
     adapter = GraphBackupStore()
     adapter.connect()
 
     _LOGGER.info("Starting creation of the database dump")
-    run_command(
-        f"pg_dump -h {KNOWLEDGE_GRAPH_HOST} -p {KNOWLEDGE_GRAPH_PORT} "
-        f"-U {KNOWLEDGE_GRAPH_USER} -d {KNOWLEDGE_GRAPH_DATABASE} -f pg_dump.sql",
-        env={"PGPASSWORD": os.getenv("KNOWLEDGE_GRAPH_PASSWORD", "postgres")},
-        timeout=None,
-    )
-    _LOGGER.info("Uploading the database dump")
-    object_id = adapter.store_dump("pg_dump.sql")
-    _LOGGER.info("The database dump is available at %s/%s", adapter.prefix, object_id)
-    _LOGGER.info("Graph backup task is done.")
+    try:
+        run_command(
+            f"pg_dump -h {KNOWLEDGE_GRAPH_HOST} -p {KNOWLEDGE_GRAPH_PORT} "
+            f"-U {KNOWLEDGE_GRAPH_USER} -d {KNOWLEDGE_GRAPH_DATABASE} -f pg_dump.sql",
+            env={"PGPASSWORD": os.getenv("KNOWLEDGE_GRAPH_PASSWORD", "postgres")},
+            timeout=None,
+        )
+        _LOGGER.info("Uploading the database dump")
+
+        object_id = adapter.store_dump("pg_dump.sql")
+        _LOGGER.info("The database dump is available at %s/%s", adapter.prefix, object_id)
+        _LOGGER.info("Graph backup task is done.")
+
+        _METRIC_PG_DUMP_STATUS.labels(THOTH_DEPLOYMENT_NAME, __component_version__).set(0)
+
+    except Exception as e:
+        _METRIC_PG_DUMP_STATUS.labels(THOTH_DEPLOYMENT_NAME, __component_version__).set(1)
+        _LOGGER.exception(f"Error saving the pg dump {e}.")
+    finally:
+        _send_metrics()
 
 
 if __name__ == "__main__":
