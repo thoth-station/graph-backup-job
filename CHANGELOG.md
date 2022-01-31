@@ -1,4 +1,11 @@
 
+## Release 0.9.0 (2022-01-31T21:29:10)
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* Add metrics about pg dump creation status
+* Remove unused .thothTemplate.yaml
+* :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* Enable TLS verification
+
 ## Release 0.8.12 (2021-12-24T15:42:40)
 * :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
 * :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
