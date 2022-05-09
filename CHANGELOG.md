@@ -1,4 +1,9 @@
 
+## Release 0.9.1 (2022-05-09T19:39:34)
+* 26d129c :ship: Bump up base image initialized in CI. (#222)
+* acd8013 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment (#221)
+* ef11978 :medal_sports: set badges for easy access to content
+
 ## Release 0.9.0 (2022-01-31T21:29:10)
 * :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
 * Add metrics about pg dump creation status
