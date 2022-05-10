@@ -1,4 +1,7 @@
 
+## Release 0.9.2 (2022-05-10T09:16:28)
+* bca5841 Fix the base image (#228)
+
 ## Release 0.9.1 (2022-05-09T19:39:34)
 * 26d129c :ship: Bump up base image initialized in CI. (#222)
 * acd8013 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment (#221)
