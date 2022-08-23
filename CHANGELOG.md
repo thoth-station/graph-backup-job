@@ -1,4 +1,8 @@
 
+## Release 0.9.3 (2022-08-23T02:50:33)
+* 09011fd :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment (#235)
+* 369064a :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+
 ## Release 0.9.2 (2022-05-10T09:16:28)
 * bca5841 Fix the base image (#228)
 
