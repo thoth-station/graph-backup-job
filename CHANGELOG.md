@@ -1,4 +1,11 @@
 
+## Release 0.10.0 (2022-09-21T20:11:56)
+* c136418 Use volume mount path to store the backup
+* d3305c4 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* 2332856 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+* a4bfb15 :ship: Bump up base image initialized in CI.
+* ba9c07a :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
+
 ## Release 0.9.3 (2022-08-23T02:50:33)
 * 09011fd :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment (#235)
 * 369064a :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
