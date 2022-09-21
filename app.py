@@ -33,6 +33,8 @@ __version__ = "0.9.3"
 __component_version__ = f"{__version__}+thoth_storage.{__storages__version__}"
 COMPONENT_NAME = "graph-backup-job"
 
+THOTH_DATA_DUMP_PATH = os.getenv("THOTH_DATA_DUMP_PATH", "pg_dump.sql")
+
 KNOWLEDGE_GRAPH_HOST = os.getenv("KNOWLEDGE_GRAPH_HOST", "localhost")
 KNOWLEDGE_GRAPH_PORT = os.getenv("KNOWLEDGE_GRAPH_PORT", "5432")
 KNOWLEDGE_GRAPH_USER = os.getenv("KNOWLEDGE_GRAPH_USER", "postgres")
@@ -94,13 +96,13 @@ def main():
     try:
         run_command(
             f"pg_dump -h {KNOWLEDGE_GRAPH_HOST} -p {KNOWLEDGE_GRAPH_PORT} "
-            f"-U {KNOWLEDGE_GRAPH_USER} -d {KNOWLEDGE_GRAPH_DATABASE} -f pg_dump.sql",
+            f"-U {KNOWLEDGE_GRAPH_USER} -d {KNOWLEDGE_GRAPH_DATABASE} -f {THOTH_DATA_DUMP_PATH}",
             env={"PGPASSWORD": os.getenv("KNOWLEDGE_GRAPH_PASSWORD", "postgres")},
             timeout=None,
         )
         _LOGGER.info("Uploading the database dump")
 
-        object_id = adapter.store_dump("pg_dump.sql")
+        object_id = adapter.store_dump(f"{THOTH_DATA_DUMP_PATH}")
         _LOGGER.info("The database dump is available at %s/%s", adapter.prefix, object_id)
         _LOGGER.info("Graph backup task is done.")
 
