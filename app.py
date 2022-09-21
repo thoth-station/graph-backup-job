@@ -29,7 +29,7 @@ from prometheus_client import Gauge, CollectorRegistry, push_to_gateway
 
 init_logging()
 _LOGGER = logging.getLogger("thoth.graph_backup_job")
-__version__ = "0.9.3"
+__version__ = "0.10.0"
 __component_version__ = f"{__version__}+thoth_storage.{__storages__version__}"
 COMPONENT_NAME = "graph-backup-job"
 
