@@ -1,4 +1,9 @@
 
+## Release 0.10.1 (2023-01-18T21:33:43)
+* 90a4a14 ':arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment' (#251)
+* 63b5063 :recycle: HouseKeeping: Updated pre-commit and fix image issue (#252)
+* d8866bf :ship: Bump up base image initialized in CI.
+
 ## Release 0.10.0 (2022-09-21T20:11:56)
 * c136418 Use volume mount path to store the backup
 * d3305c4 :arrow_up: Automatic update of dependencies by Kebechet for the ubi8 environment
